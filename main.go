@@ -5,7 +5,8 @@ import (
 )
 
 const (
-	GRAVITY = 0.15
+	GRAVITY       = 0.1
+	PLAYER_HEIGHT = 15
 )
 
 var (
@@ -15,17 +16,17 @@ var (
 func updatePlayer(camera *rl.Camera3D) {
 	// handle jumping
 	if rl.IsKeyPressed(rl.KeySpace) {
-		upVel += 4
+		upVel += 2
 		camera.Position.Y += upVel
 		camera.Target.Y += upVel
 	}
 
-	if camera.Position.Y > 10 {
+	if camera.Position.Y > PLAYER_HEIGHT {
 		camera.Position.Y += upVel
 		camera.Target.Y += upVel
 		upVel -= GRAVITY
 	} else {
-		camera.Position.Y = 10
+		camera.Position.Y = PLAYER_HEIGHT
 		upVel = 0
 	}
 
@@ -86,13 +87,13 @@ func main() {
 	treeMaterial := rl.LoadTexture("resources/textures/green_stuff.jpg")
 	treeModel.GetMaterials()[0].Maps.Texture = treeMaterial
 
-	cubeModel := rl.LoadModelFromMesh(rl.GenMeshCube(15, 15, 15))
+	cubeModel := rl.LoadModelFromMesh(rl.GenMeshCube(10, 10, 10))
 	brickMaterial := rl.LoadTexture("resources/textures/default_wood.png")
 	cubeModel.GetMaterials()[0].Maps.Texture = brickMaterial
 
 	camera := rl.Camera3D{
 		Position:   rl.Vector3{X: 50.0, Y: 20.0, Z: 50.0},
-		Target:     rl.Vector3{X: -50.0, Y: 10.0, Z: 0.0},
+		Target:     rl.Vector3{X: -50.0, Y: PLAYER_HEIGHT, Z: 0.0},
 		Up:         rl.Vector3{X: 0.0, Y: 1.0, Z: 0.0},
 		Fovy:       80.0,
 		Projection: rl.CameraPerspective,
@@ -109,15 +110,15 @@ func main() {
 		rl.ClearBackground(rl.SkyBlue)
 		rl.BeginMode3D(camera)
 		rl.DrawPlane(rl.Vector3{X: camera.Position.X, Y: 0, Z: camera.Position.Z}, rl.Vector2{X: 500, Y: 500}, rl.DarkGreen)
-		cubePos := rl.Vector3{X: 0.0, Y: 7.5, Z: 0.0}
-		rl.DrawCube(cubePos, 15, 15, 15, rl.Blue)
-		rl.DrawCubeWires(cubePos, 15, 15, 15, rl.Black)
+		cubePos := rl.Vector3{X: 0.0, Y: 5, Z: 0.0}
+		rl.DrawCube(cubePos, 10, 10, 10, rl.Blue)
+		rl.DrawCubeWires(cubePos, 10, 10, 10, rl.Black)
 
 		rl.DrawCapsule(rl.Vector3{X: 20, Y: 5, Z: 0}, rl.Vector3{X: 20, Y: 10, Z: 0}, 5, 20, 8, rl.Green)
 
 		rl.DrawModel(treeModel, rl.Vector3{X: 0.0, Y: 7.5, Z: 50}, 20, rl.White)
 
-		rl.DrawModel(cubeModel, rl.Vector3{X: 50.0, Y: 7.5, Z: 0.0}, 1, rl.White)
+		rl.DrawModel(cubeModel, rl.Vector3{X: 50.0, Y: 5, Z: 0.0}, 1, rl.White)
 
 		rl.EndMode3D()
 		// rl.EndTextureMode()
