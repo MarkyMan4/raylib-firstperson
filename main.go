@@ -10,7 +10,8 @@ const (
 )
 
 var (
-	upVel float32 = 0
+	upVel           float32 = 0
+	isCursorEnabled         = false
 )
 
 func updatePlayer(camera *rl.Camera3D) {
@@ -101,8 +102,19 @@ func main() {
 
 	rl.SetTargetFPS(60)
 	rl.DisableCursor()
+	rl.SetExitKey(rl.KeyF4)
 
 	for !rl.WindowShouldClose() {
+		if rl.IsKeyPressed(rl.KeyEscape) {
+			if isCursorEnabled {
+				rl.DisableCursor()
+			} else {
+				rl.EnableCursor()
+			}
+
+			isCursorEnabled = !isCursorEnabled
+		}
+
 		updatePlayer(&camera)
 
 		rl.BeginDrawing()
@@ -136,7 +148,7 @@ func main() {
 		// )
 
 		// crosshair in center of screen
-		rl.DrawCircle(750, 400, 3, rl.Black)
+		rl.DrawCircle(int32(rl.GetScreenWidth())/2, int32(rl.GetScreenHeight())/2, 3, rl.Black)
 
 		rl.EndDrawing()
 	}
