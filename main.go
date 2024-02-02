@@ -89,8 +89,16 @@ func main() {
 	treeModel.GetMaterials()[0].Maps.Texture = treeMaterial
 
 	cubeModel := rl.LoadModelFromMesh(rl.GenMeshCube(10, 10, 10))
-	brickMaterial := rl.LoadTexture("resources/textures/default_wood.png")
-	cubeModel.GetMaterials()[0].Maps.Texture = brickMaterial
+	woodTexture := rl.LoadTexture("resources/textures/default_wood.png")
+	cubeModel.GetMaterials()[0].Maps.Texture = woodTexture
+
+	grassCube := rl.LoadModelFromMesh(rl.GenMeshCube(10, 10, 10))
+	grassTexture := rl.LoadTexture("resources/textures/grass.png")
+	grassCube.GetMaterials()[0].Maps.Texture = grassTexture
+
+	stoneCube := rl.LoadModelFromMesh(rl.GenMeshCube(10, 10, 10))
+	stoneTexture := rl.LoadTexture("resources/textures/stone.png")
+	stoneCube.GetMaterials()[0].Maps.Texture = stoneTexture
 
 	camera := rl.Camera3D{
 		Position:   rl.Vector3{X: 50.0, Y: 20.0, Z: 50.0},
@@ -129,8 +137,9 @@ func main() {
 		rl.DrawCapsule(rl.Vector3{X: 20, Y: 5, Z: 0}, rl.Vector3{X: 20, Y: 10, Z: 0}, 5, 20, 8, rl.Green)
 
 		rl.DrawModel(treeModel, rl.Vector3{X: 0.0, Y: 7.5, Z: 50}, 20, rl.White)
-
 		rl.DrawModel(cubeModel, rl.Vector3{X: 50.0, Y: 5, Z: 0.0}, 1, rl.White)
+		rl.DrawModel(grassCube, rl.Vector3{X: 60.0, Y: 5, Z: 0.0}, 1, rl.White)
+		rl.DrawModel(stoneCube, rl.Vector3{X: 70.0, Y: 5, Z: 0.0}, 1, rl.White)
 
 		rl.EndMode3D()
 		// rl.EndTextureMode()
@@ -149,6 +158,7 @@ func main() {
 
 		// crosshair in center of screen
 		rl.DrawCircle(int32(rl.GetScreenWidth())/2, int32(rl.GetScreenHeight())/2, 3, rl.Black)
+		rl.DrawFPS(0, 0)
 
 		rl.EndDrawing()
 	}
