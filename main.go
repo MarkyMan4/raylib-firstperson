@@ -100,6 +100,8 @@ func main() {
 	stoneTexture := rl.LoadTexture("resources/textures/stone.png")
 	stoneCube.GetMaterials()[0].Maps.Texture = stoneTexture
 
+	enemySprite := rl.LoadTexture("assets/basic_enemy.png")
+
 	camera := rl.Camera3D{
 		Position:   rl.Vector3{X: 50.0, Y: 20.0, Z: 50.0},
 		Target:     rl.Vector3{X: -50.0, Y: PLAYER_HEIGHT, Z: 0.0},
@@ -140,6 +142,8 @@ func main() {
 		rl.DrawModel(cubeModel, rl.Vector3{X: 50.0, Y: 5, Z: 0.0}, 1, rl.White)
 		rl.DrawModel(grassCube, rl.Vector3{X: 60.0, Y: 5, Z: 0.0}, 1, rl.White)
 		rl.DrawModel(stoneCube, rl.Vector3{X: 70.0, Y: 5, Z: 0.0}, 1, rl.White)
+
+		rl.DrawBillboard(camera, enemySprite, rl.Vector3{X: 0, Y: 10, Z: -30}, 20, rl.White)
 
 		rl.EndMode3D()
 		// rl.EndTextureMode()
