@@ -11,15 +11,17 @@ const (
 
 var (
 	upVel           float32 = 0
+	isOnGround              = true
 	isCursorEnabled         = false
 )
 
 func updatePlayer(camera *rl.Camera3D) {
 	// handle jumping
-	if rl.IsKeyPressed(rl.KeySpace) {
+	if rl.IsKeyPressed(rl.KeySpace) && isOnGround {
 		upVel += 2
 		camera.Position.Y += upVel
 		camera.Target.Y += upVel
+		isOnGround = false
 	}
 
 	if camera.Position.Y > PLAYER_HEIGHT {
@@ -29,6 +31,7 @@ func updatePlayer(camera *rl.Camera3D) {
 	} else {
 		camera.Position.Y = PLAYER_HEIGHT
 		upVel = 0
+		isOnGround = true
 	}
 
 	var xMoveFwd float32 = 0.0
