@@ -134,10 +134,18 @@ func main() {
 		// rl.BeginTextureMode(target)
 		rl.ClearBackground(rl.SkyBlue)
 		rl.BeginMode3D(camera)
+
+		// plane follows player
 		rl.DrawPlane(rl.Vector3{X: camera.Position.X, Y: 0, Z: camera.Position.Z}, rl.Vector2{X: 500, Y: 500}, rl.DarkGreen)
-		cubePos := rl.Vector3{X: 0.0, Y: 5, Z: 0.0}
-		rl.DrawCube(cubePos, 10, 10, 10, rl.Blue)
-		rl.DrawCubeWires(cubePos, 10, 10, 10, rl.Black)
+
+		cubePos1 := rl.Vector3{X: 0.0, Y: 5, Z: 0.0}
+		cubePos2 := rl.Vector3{X: 0.0, Y: 15, Z: 0.0}
+
+		rl.DrawCube(cubePos1, 10, 10, 10, rl.Blue)
+		rl.DrawCubeWires(cubePos1, 10, 10, 10, rl.Black)
+
+		rl.DrawCube(cubePos2, 10, 10, 10, rl.Red)
+		rl.DrawCubeWires(cubePos2, 10, 10, 10, rl.Black)
 
 		rl.DrawCapsule(rl.Vector3{X: 20, Y: 5, Z: 0}, rl.Vector3{X: 20, Y: 10, Z: 0}, 5, 20, 8, rl.Green)
 
